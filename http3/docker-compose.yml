@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  apache:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"         # HTTPS (TCP)
+      - "443:443/udp"     # HTTP/3 (UDP)
+    volumes:
+      - ../public:/usr/local/apache2/htdocs
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+    environment:
+      - APACHE_LOG_DIR=/usr/local/apache2/logs
